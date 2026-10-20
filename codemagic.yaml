@@ -13,14 +13,14 @@ workflows:
         XCODE_PROJECT: "Blockora.xcodeproj"
         XCODE_SCHEME: "Blockora"
         BUNDLE_ID: "com.brechtdeprez.blockora"
-      # shortcut: pinned below "latest" (26.6) because that version has a confirmed
-      # xcodebuild -showBuildSettings regression (exit 74) on Codemagic/Apple forums;
-      # bump back to latest once Apple fixes it.
-      xcode: "26.5"
+      xcode: latest
     scripts:
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
+      - name: Debug - raw xcodebuild showBuildSettings output
+        script: |
+          xcodebuild -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME" -showBuildSettings || true
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
