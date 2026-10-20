@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "BlockoraWorldBackground.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

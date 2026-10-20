@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Blockora</title>
+<link rel="icon" href="assets/app-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="Blockora"></a>
+    <div class="links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#screenshots">Screenshots</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>We're here to help</h1>
+  <p>Bug report, feedback, or just want to know when Blockora launches — send it over.</p>
+</header>
+
+<section>
+  <div class="wrap">
+    <form class="form-card" id="support-form">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required maxlength="100" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required maxlength="200" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required maxlength="4000"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%; justify-content:center;">Send message</button>
+      <div id="support-status" role="status"></div>
+    </form>
+    <p class="support-alt">You can also reach us directly at <a href="mailto:support@blockora6.xyz">support@blockora6.xyz</a>.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Blockora. All rights reserved.</span>
+    <div class="links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('support-form');
+  const status = document.getElementById('support-status');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    status.textContent = 'Sending…';
+    status.className = '';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      status.textContent = "Thanks — we'll get back to you soon.";
+      status.className = 'ok';
+      form.reset();
+    } catch (err) {
+      status.textContent = err.message || 'Could not send your message. Try emailing us directly.';
+      status.className = 'err';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

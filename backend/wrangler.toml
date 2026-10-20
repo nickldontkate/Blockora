@@ -1,0 +1,41 @@
+name = "blockora-backend"
+main = "src/index.ts"
+compatibility_date = "2024-09-25"
+compatibility_flags = ["nodejs_compat"]
+
+# ---------------------------------------------------------------------------
+# D1 — primary relational store (players, cities, contracts, transactions...)
+# ---------------------------------------------------------------------------
+[[d1_databases]]
+binding = "DB"
+database_name = "blockora-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# ---------------------------------------------------------------------------
+# KV — server-side game-balance config + read-through caches
+# (module stats, synergy table, contract templates, world-event templates)
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "CONFIG"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+preview_id = "REPLACE_WITH_KV_PREVIEW_NAMESPACE_ID"
+
+# ---------------------------------------------------------------------------
+# Durable Object — single shared coordinator for the cooperative World Project
+# ---------------------------------------------------------------------------
+[durable_objects]
+bindings = [
+  { name = "WORLD_PROJECT", class_name = "WorldProjectRoom" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["WorldProjectRoom"]
+
+[vars]
+ENVIRONMENT = "development"
+OFFLINE_PRODUCTION_CAP_SECONDS = "28800" # 8 hours, server-enforced ceiling
+
+[observability]
+enabled = true

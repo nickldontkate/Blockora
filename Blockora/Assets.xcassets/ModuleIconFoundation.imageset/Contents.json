@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ModuleIconFoundation.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

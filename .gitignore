@@ -1,0 +1,18 @@
+# Xcode
+build/
+build_out/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Cloudflare backend (has its own .gitignore too)
+backend/node_modules/
+backend/.wrangler/
+backend/dist/
+backend/*.log
+backend/.dev.vars

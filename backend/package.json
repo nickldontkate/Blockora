@@ -1,0 +1,23 @@
+{
+  "name": "blockora-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server-authoritative Cloudflare Workers backend for BLOCKORA (city builder).",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "migrations:apply:local": "wrangler d1 migrations apply blockora-db --local",
+    "migrations:apply:remote": "wrangler d1 migrations apply blockora-db --remote",
+    "migrations:list": "wrangler d1 migrations list blockora-db"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240925.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.1",
+    "wrangler": "^3.78.0"
+  }
+}
