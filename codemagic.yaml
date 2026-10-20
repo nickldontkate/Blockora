@@ -13,14 +13,15 @@ workflows:
         XCODE_PROJECT: "Blockora.xcodeproj"
         XCODE_SCHEME: "Blockora"
         BUNDLE_ID: "com.brechtdeprez.blockora"
-      xcode: latest
+      # shortcut: project.pbxproj was last saved by a local Xcode 27.0 and needs
+      # that project file format; Codemagic's stable "latest" (26.x) can't open it
+      # ("future Xcode project file format"), so pin to the edge channel which has
+      # Xcode 27.0. Once 27.0 becomes Codemagic's stable default, switch to "latest".
+      xcode: edge
     scripts:
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
-      - name: Debug - raw xcodebuild showBuildSettings output
-        script: |
-          xcodebuild -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME" -showBuildSettings || true
       - name: Build ipa for distribution
         script: |
           xcode-project build-ipa \
