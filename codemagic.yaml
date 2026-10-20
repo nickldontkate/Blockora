@@ -8,11 +8,11 @@ workflows:
         - appstore_credentials
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.brechtdeprez.blockora
+        bundle_identifier: com.blockoragames.blockora
       vars:
         XCODE_PROJECT: "Blockora.xcodeproj"
         XCODE_SCHEME: "Blockora"
-        BUNDLE_ID: "com.brechtdeprez.blockora"
+        BUNDLE_ID: "com.blockoragames.blockora"
       xcode: latest
     scripts:
       - name: Set up code signing settings on Xcode project
